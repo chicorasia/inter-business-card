@@ -5,6 +5,8 @@ App desenvolvido no módulo *Criando um app de cartão de visitas em Kotlin* do 
 Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnologias e soluções:
 
 - Injeção de dependências por meio da biblioteca Koin
+- Versionamento segundo princípios de GitFlow
+- Clean Architecture
 
 ****
 
