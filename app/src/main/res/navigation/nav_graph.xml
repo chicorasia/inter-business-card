@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCardFragment"
-        android:name="br.com.chicorialabs.businesscard.ui.AddCardFragment"
+        android:name="br.com.chicorialabs.businesscard.ui.addcard.AddCardFragment"
         android:label="fragment_add_card"
         tools:layout="@layout/fragment_add_card" />
     <action android:id="@+id/retorna_HomeFragment" app:destination="@id/homeFragment" />
