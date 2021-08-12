@@ -6,4 +6,11 @@
     <string name="telefone_placeholder">(41) 2222 4444</string>
     <string name="email_placeholder">johnny@appleseed.org</string>
     <string name="empresa_placeholder">Appleseed LLC</string>
+    <string name="description_add_card_fragment">Adicionar um cartão</string>
+    <string name="label_name">Nome</string>
+    <string name="label_telephone">Telefone</string>
+    <string name="label_email">E-mail</string>
+    <string name="label_empresa">Empresa</string>
+    <string name="label_save_btn">Salvar</string>
+    <string name="label_color">Cor</string>
 </resources>

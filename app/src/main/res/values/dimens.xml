@@ -8,4 +8,5 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="card_padding">8dp</dimen>
     <dimen name="card_text_top_margin">8dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

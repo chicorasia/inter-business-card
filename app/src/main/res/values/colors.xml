@@ -16,6 +16,7 @@
     <color name="cardYellowOchre">#FFA67F38</color>
     <color name="cardBrickRed">#FFdc6761</color>
     <color name="cardRoyalBlue">#FF0B87BD</color>
-    <color name="cardLightMagenta">#FFd569e6</color>
+    <color name="cardLightMagenta">#FFc2549c</color>
     <color name="cardLightGrey">#FF9BA4B7</color>
+    <color name="veryLightGrey">#F5F5F5</color>
 </resources>
