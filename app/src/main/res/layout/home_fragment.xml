@@ -8,7 +8,6 @@
         <variable
             name="viewModel"
             type="br.com.chicorialabs.businesscard.ui.home.HomeViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,12 +16,26 @@
         android:background="@color/primaryColor"
         tools:context=".ui.home.HomeFragment">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecyclerView"
+            tools:listitem="@layout/item_businesscard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+<!--        A visibilidade desse item é controlada por meio de um atributo do HomeViewModel -->
         <TextView
+            android:id="@+id/homeEmptyListTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/home_fragment_placeholder"
-            style="?attr/textAppearanceHeadline5"
+            style="?attr/textAppearanceBody1"
             android:textColor="@color/primaryTextColor"
+            android:visibility="@{viewModel.showEmptyListMessage}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
