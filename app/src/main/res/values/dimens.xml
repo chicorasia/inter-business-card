@@ -3,4 +3,9 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="material_btn_dimension">48dp</dimen>
     <dimen name="half_margin">8dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="card_padding">8dp</dimen>
+    <dimen name="card_text_top_margin">8dp</dimen>
 </resources>

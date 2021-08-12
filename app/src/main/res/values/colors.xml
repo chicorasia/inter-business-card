@@ -10,4 +10,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+    <color name="cardTextColor">#FF000030</color>
+    <color name="cardTextGrey">#323232</color>
+    <color name="cardAcquaGreen">#FF32A586</color>
+    <color name="cardYellowOchre">#FFA67F38</color>
+    <color name="cardBrickRed">#FFdc6761</color>
+    <color name="cardRoyalBlue">#FF0B87BD</color>
+    <color name="cardLightMagenta">#FFd569e6</color>
+    <color name="cardLightGrey">#FF9BA4B7</color>
 </resources>

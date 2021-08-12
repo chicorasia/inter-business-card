@@ -2,4 +2,8 @@
     <string name="app_name">BusinessCard</string>
     <string name="home_fragment_placeholder">This is Home fragment</string>
     <string name="add_card_placeholder">This is Add Card Fragment</string>
+    <string name="nome_placeholder">Johnny Appleseed</string>
+    <string name="telefone_placeholder">(41) 2222 4444</string>
+    <string name="email_placeholder">johnny@appleseed.org</string>
+    <string name="empresa_placeholder">Appleseed LLC</string>
 </resources>
