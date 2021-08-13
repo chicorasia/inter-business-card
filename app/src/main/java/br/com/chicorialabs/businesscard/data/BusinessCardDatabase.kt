@@ -7,14 +7,21 @@ import androidx.room.RoomDatabase
 
 /**
  * Essa classe abstrata representa a database. Ela mantém somente a entidade BusinessCard.
- * Usei o código boilerplate indicado no codelab da Google.
+ * Usei o código boilerplate sugerido no codelab da Google.
  */
 
 @Database(entities = [BusinessCard::class], version = 1, exportSchema = false)
 abstract class BusinessCardDatabase : RoomDatabase() {
 
-    abstract val BusinessCardDao: BusinessCardDao
+    /**
+     * Esse campo é acessado pelo Koin (ver o arquivo AppModule.kt)
+     */
+    abstract val businessCardDao: BusinessCardDao
 
+    /**
+     * A função do companion object é verificar se já existe uma instância válida da Database
+     * e, caso não exista, criar um nova instância
+     */
     companion object {
 
         @Volatile

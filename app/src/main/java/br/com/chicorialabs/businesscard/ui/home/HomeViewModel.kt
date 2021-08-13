@@ -1,10 +1,12 @@
 package br.com.chicorialabs.businesscard.ui.home
 
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import br.com.chicorialabs.businesscard.data.BusinessCard
+import br.com.chicorialabs.businesscard.data.BusinessCardRepository
 
 
 /**
@@ -12,13 +14,24 @@ import br.com.chicorialabs.businesscard.data.BusinessCard
  * ao repositório. A UI do HomeFragment é manipulada a partir das
  * mudanças nos campos do ViewModel.
  */
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    businessCardRepository: BusinessCardRepository
+    ) : ViewModel() {
 
     /**
-     * Um objeto MutableLiveData<List<BusinessCard> provisório. Depois será substituído por
-     * uma referência ao LiveData do Repository.
+     * Acesso o a lista de BusinessCard salvos na database por meio da propriedade
+     * do BusinessCardRepository. Com essa estrutura o Fragmento não tem acesso
+     * direto ao Repository - todas as transações passam pelo ViewModel.
+     * Esse campo não é acessível diretamente pelo Fragment ou Activity.
      */
-    private val listBusinessCard = MutableLiveData<List<BusinessCard>>()
+    private val _listBusinessCard: LiveData<List<BusinessCard>> =
+        businessCardRepository.listBusinessCard
+
+    /**
+     * Esse campo fica exposto para o Fragment.
+     */
+    val listBusinessCard: LiveData<List<BusinessCard>>
+        get() = _listBusinessCard
 
     /**
      * Esse campo verifica se a lista de BusinessCard está vazia. Se estiver, retorna View.VISIBLE
@@ -26,7 +39,7 @@ class HomeViewModel : ViewModel() {
      * View.GONE para ocultar o TextView e mostrar somente a RecyclerView.
      */
 
-    val showEmptyListMessage = Transformations.map(listBusinessCard) {
+    val showEmptyListMessage = Transformations.map(_listBusinessCard) {
         if (it.isEmpty()) {
             return@map View.VISIBLE
         }
