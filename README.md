@@ -10,6 +10,8 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **DataBinding e Listener Bindings**. Adotei essas soluções, sempre que possível, para reduzir o acoplamento do código e ter mais flexibilidade. Com isso, os clickListeners nos Fragments foram substituídos por Listener Bindings nos arquivos de layout XML. Também adotei alguns métodos da biblioteca Transformations para vincular a visibilidade de itens a variáveis do ViewModel.
 - **Boas práticas de uso de estilos, dimensions, etc.** Procurei adotar melhores práticas para a padronização dos componentes visuais nos arquivos XML, tais como o uso de estilos standard do Material Design, extração de atributos @dimen e @string e outras ferramentas, visando a uniformidade, acessibilidade e manutenabilidade do app.
 - **Boas práticas UX/UI**. Apliquei princípios e componentes do Google Material Design para manter a uniformidade dos elementos visuais e a facilidade de compreensão da interface. As cores e condições de contraste e legibilidade foram verificadas por meio da ferramenta de cores em material.io. A interface foi enriquecida com hints e mensagems de feeeback para facilitar a compreensão do estado do sistema pelo usuário.
+- **Persistência de dados com Room**. A gravação dos dados é feita no armazenamento interno do dispositivo por meio da biblioteca Room.
+- **Corrotinas**. Uso extensivo de corrotinas para as operações de gravação na database.
 - **Versionamento segundo princípios de GitFlow.** 
 - **Clean Architecture**
 
