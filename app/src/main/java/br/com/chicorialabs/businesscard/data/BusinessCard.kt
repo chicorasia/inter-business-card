@@ -1,13 +1,20 @@
 package br.com.chicorialabs.businesscard.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 /**
- * Essa data class representa a única entidade usada no app. Aqui foi implementada minimamente só
- * para iniciar a configuração do ViewModel.
+ * Essa data class representa a única entidade usada no app. A anotação @Entity indica para o Room
+ * que ela será gravada no armazenamento local. As entidades ficam gravadas na
+ * tabela "table_businesscard". O campo id serve como chave primária e é gerado automaticamente.
  */
 
-// TODO: Adicionar os outros atributos da classe
-// TODO: Transformar em uma @Entity para o Room
-
-data class BusinessCard(val nome: String) {
-
-}
+@Entity(tableName = "table_businesscard")
+data class BusinessCard(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+    val nome: String,
+    val empresa: String,
+    val telefone: String,
+    val email: String,
+    val cardColor: String
+    )
