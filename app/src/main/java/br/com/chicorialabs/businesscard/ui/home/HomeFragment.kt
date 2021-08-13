@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.chicorialabs.businesscard.databinding.HomeFragmentBinding
+import br.com.chicorialabs.businesscard.ui.adapter.BusinessCardAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -14,7 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * biblioteca Koin. A manipulação da UI é feita sempre que possível por meio de
  * campos observáveis no ViewModel. Optei por usar Listener Bindings para capturar os cliques
  * nos botões e outros objetos para reduzir o acoplamento do código.
- *
  */
 class HomeFragment : Fragment() {
 
@@ -39,10 +40,23 @@ class HomeFragment : Fragment() {
         binding.viewModel = mHomeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        initBusinessCardList()
         initNavigateToAddCardObserver()
         return binding.root
     }
 
+    /**
+     * Observa a lista armazenada no ViewModel, instancia o Adapter e inicializa
+     * a RecyclerView com um layout linear.
+     */
+    private fun initBusinessCardList() {
+        mHomeViewModel.listBusinessCard.observe(viewLifecycleOwner) {
+            val adapter = BusinessCardAdapter()
+            adapter.submitList(it)
+            binding.homeRecyclerView.layoutManager = LinearLayoutManager(context)
+            binding.homeRecyclerView.adapter = adapter
+        }
+    }
 
     /**
      * Esse método configura o observer para o parâmetro navigateToAddCardFragment;

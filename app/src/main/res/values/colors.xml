@@ -14,9 +14,9 @@
     <color name="cardTextGrey">#323232</color>
     <color name="cardAcquaGreen">#FF32A586</color>
     <color name="cardYellowOchre">#FFA67F38</color>
-    <color name="cardBrickRed">#FFdc6761</color>
+    <color name="cardBrickRed">#FFDC6761</color>
     <color name="cardRoyalBlue">#FF0B87BD</color>
-    <color name="cardLightMagenta">#FFc2549c</color>
+    <color name="cardLightMagenta">#FFC2549C</color>
     <color name="cardLightGrey">#FF9BA4B7</color>
     <color name="veryLightGrey">#F5F5F5</color>
 </resources>

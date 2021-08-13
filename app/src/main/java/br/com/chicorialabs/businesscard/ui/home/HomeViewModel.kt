@@ -1,12 +1,10 @@
 package br.com.chicorialabs.businesscard.ui.home
 
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import br.com.chicorialabs.businesscard.data.BusinessCard
 import br.com.chicorialabs.businesscard.data.BusinessCardRepository
+import kotlinx.coroutines.launch
 
 
 /**
@@ -16,10 +14,10 @@ import br.com.chicorialabs.businesscard.data.BusinessCardRepository
  */
 class HomeViewModel(
     businessCardRepository: BusinessCardRepository
-    ) : ViewModel() {
+) : ViewModel() {
 
     /**
-     * Acesso o a lista de BusinessCard salvos na database por meio da propriedade
+     * Acesso à lista de BusinessCard salvos na database por meio da propriedade
      * do BusinessCardRepository. Com essa estrutura o Fragmento não tem acesso
      * direto ao Repository - todas as transações passam pelo ViewModel.
      * Esse campo não é acessível diretamente pelo Fragment ou Activity.
@@ -42,8 +40,7 @@ class HomeViewModel(
     val showEmptyListMessage = Transformations.map(_listBusinessCard) {
         if (it.isEmpty()) {
             return@map View.VISIBLE
-        }
-        else return@map View.GONE
+        } else return@map View.GONE
     }
 
     /**
@@ -57,12 +54,75 @@ class HomeViewModel(
      * o segundo método reseta o campo depois que a navegação foi concluída.
      */
 
-    fun navigateToAddCardFragment() : Unit {
+    fun navigateToAddCardFragment(): Unit {
         navigateToAddCardFragment.value = true
     }
 
-    fun doneNavigateToAddCardFragment() : Unit {
+    fun doneNavigateToAddCardFragment(): Unit {
         navigateToAddCardFragment.value = false
     }
 
+    /**
+     * Grava alguns cartões no repositório apenas para teste. Limpar os dados
+     * usando Tools > ADB Idea > Clear App Data. Eliminar esse bloco de código depois
+     * que a gravação a partir do fragment tenha sido implementada.
+     */
+    init {
+        viewModelScope.launch {
+            businessCardRepository.save(
+                BusinessCard(
+                    nome = "Han Solo",
+                    empresa = "Outer Rim Transport LLC",
+                    email = "han@milleniumfalcon.org",
+                    telefone = "212-2222-3333",
+                    cardColor = "#32A586"
+                )
+            )
+            businessCardRepository.save(
+                BusinessCard(
+                    nome = "Orson Crennik",
+                    empresa = "Advanced Weapons Research Division",
+                    email = "crennik@awrd.empire.org",
+                    telefone = "333-2222-1111",
+                    cardColor = "#A67F38"
+                )
+            )
+            businessCardRepository.save(
+                BusinessCard(
+                    nome = "Galen Erso",
+                    empresa = "Weapons System Engineer",
+                    email = "g_erso@galaticmail.com",
+                    telefone = "444-3333-5555",
+                    cardColor = "#DC6761"
+                )
+            )
+            businessCardRepository.save(
+                BusinessCard(
+                    nome = "Mandalorian",
+                    empresa = "Bounty Hunters Guild",
+                    email = "mando@theguild.org",
+                    telefone = "676-7878-8787",
+                    cardColor = "#0B87BD"
+                )
+            )
+            businessCardRepository.save(
+                BusinessCard(
+                    nome = "Lando Calrissian",
+                    empresa = "Cloud City",
+                    email = "lando@cloudcity.gov",
+                    telefone = "111-2222-4444",
+                    cardColor = "#C2549C"
+                )
+            )
+            businessCardRepository.save(
+                BusinessCard(
+                    nome = "Wilhuff Tarkin",
+                    empresa = "Death Star Operations Division",
+                    email = "grand_moff@dsod.empire.org",
+                    telefone = "999-8888-9999",
+                    cardColor = "#9BA4B7"
+                )
+            )
+        }
+    }
 }
