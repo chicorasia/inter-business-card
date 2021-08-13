@@ -21,12 +21,4 @@ interface BusinessCardDao {
     @Query("SELECT * FROM table_businesscard")
     fun getAll() : LiveData<List<BusinessCard>>
 
-    @Query("SELECT * FROM table_businesscard WHERE id = :key")
-    fun get(key: Long) : BusinessCard?
-
-    @Update
-    suspend fun update(businessCard: BusinessCard)
-
-    @Delete
-    suspend fun delete(businessCard: BusinessCard)
 }
