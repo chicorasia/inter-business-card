@@ -7,6 +7,9 @@
         <variable
             name="navController"
             type="androidx.navigation.NavController" />
+        <variable
+            name="viewModel"
+            type="br.com.chicorialabs.businesscard.ui.addcard.AddCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,6 +72,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewModel.nomeField}"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -87,6 +91,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewModel.telefoneField}"
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -105,6 +110,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewModel.emailField}"
                     android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -123,6 +129,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewModel.empresaField}"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -140,12 +147,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 >
 
+<!--                Essa solução ainda usa strings hardcoded para as cores.-->
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:id="@+id/chipAcqua"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/cardAcquaGreen"
+                    android:onClick='@{(color) -> viewModel.setCardColor("#FF32A586")}'
                     android:text="Acqua"/>
 
                 <com.google.android.material.chip.Chip
@@ -154,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/cardYellowOchre"
+                    android:onClick='@{(color) -> viewModel.setCardColor("#FFA67F38")}'
                     android:text="Ochre"/>
 
                 <com.google.android.material.chip.Chip
@@ -162,6 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/cardBrickRed"
+                    android:onClick='@{(color) -> viewModel.setCardColor("#FFDC6761")}'
                     android:text="Brick"/>
 
                 <com.google.android.material.chip.Chip
@@ -170,6 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/cardRoyalBlue"
+                    android:onClick='@{(color) -> viewModel.setCardColor("#FF0B87BD")}'
                     android:text="Blue"/>
 
                 <com.google.android.material.chip.Chip
@@ -178,6 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/cardLightMagenta"
+                    android:onClick='@{(color) -> viewModel.setCardColor("#FFC2549C")}'
                     android:text="Pink"/>
 
                 <com.google.android.material.chip.Chip
@@ -186,6 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipBackgroundColor="@color/cardLightGrey"
+                    android:onClick='@{(color) -> viewModel.setCardColor("#FF9BA4B7")}'
                     android:text="Grey"/>
 
 
@@ -202,6 +216,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/addColorChipgroup"
+                android:onClick="@{()->viewModel.createNewCard()}"
                 />
 
 

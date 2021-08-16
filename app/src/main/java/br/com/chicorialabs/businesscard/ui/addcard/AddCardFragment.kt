@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import br.com.chicorialabs.businesscard.R
+import br.com.chicorialabs.businesscard.data.BusinessCard
 import br.com.chicorialabs.businesscard.databinding.FragmentAddCardBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 /**
@@ -21,6 +21,7 @@ import br.com.chicorialabs.businesscard.databinding.FragmentAddCardBinding
 
 class AddCardFragment : Fragment() {
 
+    private val mAddCardViewModel: AddCardViewModel by viewModel()
     private val binding: FragmentAddCardBinding by lazy {
         FragmentAddCardBinding.inflate(layoutInflater)
     }
@@ -37,8 +38,36 @@ class AddCardFragment : Fragment() {
         binding.navController = findNavController()
         binding.lifecycleOwner = viewLifecycleOwner
 
+        /**
+         * Fazer a vinculação entre o campo viewModel do layout XML e
+         * o ViewModel da atividade. Esse é um detalhe que é fácil de esquecer
+         * e sem ele o DataBinding não funciona!
+         */
+        binding.viewModel = mAddCardViewModel
+
+        initNavigateHomeObserver()
         return binding.root
-     }
+    }
+
+    /**
+     * Observa o valor da variável newCard no ViewModel. Quando um cartão válido é
+     * criado esse método dispara a navegação de volta para a tela inicial.
+     */
+    private fun initNavigateHomeObserver() {
+        mAddCardViewModel.newCard.observe(viewLifecycleOwner) {
+            if (it != null) {
+                navigateToHomeFragment()
+            }
+        }
+    }
+
+    /**
+     * Tira o fragment da stack e volta para a tela inicial.
+     */
+    private fun navigateToHomeFragment() {
+        findNavController().popBackStack()
+    }
+
 
     companion object {
 

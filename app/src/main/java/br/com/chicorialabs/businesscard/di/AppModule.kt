@@ -2,6 +2,7 @@ package br.com.chicorialabs.businesscard.di
 
 import br.com.chicorialabs.businesscard.data.BusinessCardDatabase
 import br.com.chicorialabs.businesscard.data.BusinessCardRepository
+import br.com.chicorialabs.businesscard.ui.addcard.AddCardViewModel
 import br.com.chicorialabs.businesscard.ui.home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,10 +18,12 @@ import org.koin.dsl.module
  * O mesmo vale para o HomeViewModel - que, no caso, recebe uma instância
  * do BusinessCardRepository.
  *
+ * <<<Adicionei o AddCardViewModel>>>
  */
 
 val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
+    viewModel { AddCardViewModel(get()) }
 }
 
 val repositoryModule = module {

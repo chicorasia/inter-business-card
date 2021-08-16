@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
     private fun initNavigateToAddCardObserver() {
         mHomeViewModel.navigateToAddCardFragment.observe(viewLifecycleOwner) { navigateToAddCardFragment ->
             if (navigateToAddCardFragment == true) {
-                navegaParaAddCardFragment()
+                navigateToAddCardFragment()
                 mHomeViewModel.doneNavigateToAddCardFragment()
             }
         }
@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
      * navegação e as actions / directions entre os Fragments. Esse método aciona o navController
      * e navega para o AddCardFragment.
      */
-    private fun navegaParaAddCardFragment() {
+    private fun navigateToAddCardFragment() {
         val direction = HomeFragmentDirections.navegaParaAdicionaCartao()
         findNavController().navigate(direction)
     }
