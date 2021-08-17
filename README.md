@@ -35,11 +35,11 @@ Primeira versão com funcionalidades essenciais:
 
 ## Screenshots
 
-![Screenshot_1](C:\Users\chico\AndroidStudioProjects\BusinessCard\Screenshot_1.png)
+![Screenshot_1](Screenshot_1.png)
 
-![Screenshot_2](C:\Users\chico\AndroidStudioProjects\BusinessCard\Screenshot_2.png)
+![Screenshot_2](Screenshot_2.png)
 
-![Screenshot_3](C:\Users\chico\AndroidStudioProjects\BusinessCard\Screenshot_3.png)
+![Screenshot_3](Screenshot_3.png)
 
 
 
