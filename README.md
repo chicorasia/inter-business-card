@@ -1,4 +1,4 @@
-# BusinessCard by chicorasia
+# BusinessCard by chicorasia :card_file_box:
 
 App desenvolvido no módulo *Criando um app de cartão de visitas em Kotlin* do bootcamp Inter Android Developer na Digital Innovation One, instrutor Igor Rotondo Baglioti.
 
@@ -12,10 +12,36 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **Boas práticas UX/UI**. Apliquei princípios e componentes do Google Material Design para manter a uniformidade dos elementos visuais e a facilidade de compreensão da interface. As cores e condições de contraste e legibilidade foram verificadas por meio da ferramenta de cores em material.io. A interface foi enriquecida com hints e mensagems de feeeback para facilitar a compreensão do estado do sistema pelo usuário.
 - **Persistência de dados com Room**. A gravação dos dados é feita no armazenamento interno do dispositivo por meio da biblioteca Room.
 - **Corrotinas**. Uso extensivo de corrotinas para as operações de gravação na database.
-- **ListAdapter e ViewHolder**. Adotei melhores práticas como a delegação das responsabilidade de inflar o layout e fazer o binding dos dados a partir da classe ViewHolder, e não nos métodos da classe ListAdapter.****
+- **ListAdapter e ViewHolder**. Adotei melhores práticas como a delegação das responsabilidade de inflar o layout e fazer o binding dos dados a partir da classe ViewHolder, e não nos métodos da classe ListAdapter.
 - **DataBinding bidirecional**. Reduzir o acoplamento de código entre Fragment, XML e ViewModel.
+- **Documentação extensiva**. Cada classe traz comentários para explicar o funcionamento e as decisões de projeto.
 - **Versionamento segundo princípios de GitFlow.** 
 - **Clean Architecture**
+
+
+
+## Histórico de versões
+
+#### Versão 0.1
+
+Primeira versão com funcionalidades essenciais:
+
+- Visualizar lista de cartões
+- Adicionar um cartão, com os dados do contato e seletor de cores
+- Compartilhar um cartão a partir da tela de home
+- Remover um cartão com clique longo no item da lista
+
+
+
+## Screenshots
+
+![Screenshot_1](C:\Users\chico\AndroidStudioProjects\BusinessCard\Screenshot_1.png)
+
+![Screenshot_2](C:\Users\chico\AndroidStudioProjects\BusinessCard\Screenshot_2.png)
+
+![Screenshot_3](C:\Users\chico\AndroidStudioProjects\BusinessCard\Screenshot_3.png)
+
+
 
 ****
 
