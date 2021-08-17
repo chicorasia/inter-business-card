@@ -13,4 +13,9 @@
     <string name="label_empresa">Empresa</string>
     <string name="label_save_btn">Salvar</string>
     <string name="label_color">Cor</string>
+    <string name="label_share">Comprartilhar</string>
+    <string name="dialog_delete_msg">Você deseja apagar o cartão? Essa ação não pode ser desfeita.</string>
+    <string name="label_no">Não</string>
+    <string name="label_yes">Sim</string>
+    <string name="dialog_title_delete">Apagar cartão</string>
 </resources>

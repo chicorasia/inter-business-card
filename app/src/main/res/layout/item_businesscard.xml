@@ -10,6 +10,9 @@ fazer a vinculação dos dados a partir do objeto recebido -->
         <variable
             name="businessCard"
             type="br.com.chicorialabs.businesscard.data.BusinessCard"/>
+        <variable
+            name="listener"
+            type="br.com.chicorialabs.businesscard.ui.adapter.BusinessCardListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +22,7 @@ fazer a vinculação dos dados a partir do objeto recebido -->
         <!--    Este XML representa um item da RecyclerView no Fragmento Home. -->
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/itemCardView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:cardCornerRadius="@dimen/card_corner_radius"
@@ -27,6 +31,9 @@ fazer a vinculação dos dados a partir do objeto recebido -->
             android:layout_marginStart="@dimen/card_margin"
             android:layout_marginEnd="@dimen/card_margin"
             android:layout_marginBottom="@dimen/half_margin"
+            android:onClick="@{() -> listener.onClick(businessCard)}"
+            android:onLongClick="@{() -> listener.onLongClick(businessCard)}"
+            android:clickable="true"
             itemBackgroundColor="@{businessCard}"
             tools:cardBackgroundColor="@color/cardRoyalBlue"
             app:layout_constraintDimensionRatio="25:9"
@@ -36,15 +43,18 @@ fazer a vinculação dos dados a partir do objeto recebido -->
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/itemCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/card_padding">
 
+<!--                Passa o MaterialCardView como parâmetro do método onShareBtnClick() -->
                 <ImageButton
                     android:id="@+id/itemShareBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_share"
+                    android:onClick="@{(view) -> listener.onShareBtnClick(itemCardView)}"
                     android:clickable="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

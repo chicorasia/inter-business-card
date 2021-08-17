@@ -1,14 +1,22 @@
 package br.com.chicorialabs.businesscard.ui.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.chicorialabs.businesscard.R
+import br.com.chicorialabs.businesscard.data.BusinessCard
 import br.com.chicorialabs.businesscard.databinding.HomeFragmentBinding
 import br.com.chicorialabs.businesscard.ui.adapter.BusinessCardAdapter
+import br.com.chicorialabs.businesscard.ui.adapter.BusinessCardListener
+import br.com.chicorialabs.businesscard.util.Image
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -48,13 +56,23 @@ class HomeFragment : Fragment() {
     /**
      * Observa a lista armazenada no ViewModel, instancia o Adapter e inicializa
      * a RecyclerView com um layout linear.
+     * Configura os comportamentos (métodos callback) do objeto BusinessCardListener,
+     * passando os respectivos parâmetros.
      */
     private fun initBusinessCardList() {
         mHomeViewModel.listBusinessCard.observe(viewLifecycleOwner) {
-            val adapter = BusinessCardAdapter()
-            adapter.submitList(it)
+            val adapter = BusinessCardAdapter(BusinessCardListener(clickListener = { id ->
+                Toast.makeText(context, "Clicou no id: $id", Toast.LENGTH_SHORT).show()
+            }, longClickListener = { businessCard ->
+                showRemoveDialog(businessCard)
+                true
+            }, shareBtnClickListener = {
+                context?.let { context -> Image.share(context, it) }
+            }
+            ))
             binding.homeRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.homeRecyclerView.adapter = adapter
+            adapter.submitList(it)
         }
     }
 
@@ -70,6 +88,22 @@ class HomeFragment : Fragment() {
                 mHomeViewModel.doneNavigateToAddCardFragment()
             }
         }
+    }
+
+    /**
+     * Exibe um Dialog de confirmação antes de apagar um cartão da lista.
+     */
+    private fun showRemoveDialog(businessCard: BusinessCard) {
+        AlertDialog.Builder(activity)
+            .setTitle(getString(R.string.dialog_title_delete))
+            .setMessage(getString(R.string.dialog_delete_msg))
+            .setNegativeButton(getString(R.string.label_no), null)
+            .setPositiveButton(getString(R.string.label_yes),
+                DialogInterface.OnClickListener { _, _ ->
+                mHomeViewModel.remove(businessCard)
+            })
+            .create()
+            .show()
     }
 
     /**

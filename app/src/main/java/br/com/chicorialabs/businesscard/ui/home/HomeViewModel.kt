@@ -12,8 +12,7 @@ import kotlinx.coroutines.launch
  * ao repositório. A UI do HomeFragment é manipulada a partir das
  * mudanças nos campos do ViewModel.
  */
-class HomeViewModel(
-    businessCardRepository: BusinessCardRepository
+class HomeViewModel(val businessCardRepository: BusinessCardRepository
 ) : ViewModel() {
 
     /**
@@ -63,66 +62,11 @@ class HomeViewModel(
     }
 
     /**
-     * Grava alguns cartões no repositório apenas para teste. Limpar os dados
-     * usando Tools > ADB Idea > Clear App Data. Eliminar esse bloco de código depois
-     * que a gravação a partir do fragment tenha sido implementada.
+     * Remove um item do repositório.
      */
-//    init {
-//        viewModelScope.launch {
-//            businessCardRepository.save(
-//                BusinessCard(
-//                    nome = "Han Solo",
-//                    empresa = "Outer Rim Transport LLC",
-//                    email = "han@milleniumfalcon.org",
-//                    telefone = "212-2222-3333",
-//                    cardColor = "#32A586"
-//                )
-//            )
-//            businessCardRepository.save(
-//                BusinessCard(
-//                    nome = "Orson Crennik",
-//                    empresa = "Advanced Weapons Research Division",
-//                    email = "crennik@awrd.empire.org",
-//                    telefone = "333-2222-1111",
-//                    cardColor = "#A67F38"
-//                )
-//            )
-//            businessCardRepository.save(
-//                BusinessCard(
-//                    nome = "Galen Erso",
-//                    empresa = "Weapons System Engineer",
-//                    email = "g_erso@galaticmail.com",
-//                    telefone = "444-3333-5555",
-//                    cardColor = "#DC6761"
-//                )
-//            )
-//            businessCardRepository.save(
-//                BusinessCard(
-//                    nome = "Mandalorian",
-//                    empresa = "Bounty Hunters Guild",
-//                    email = "mando@theguild.org",
-//                    telefone = "676-7878-8787",
-//                    cardColor = "#0B87BD"
-//                )
-//            )
-//            businessCardRepository.save(
-//                BusinessCard(
-//                    nome = "Lando Calrissian",
-//                    empresa = "Cloud City",
-//                    email = "lando@cloudcity.gov",
-//                    telefone = "111-2222-4444",
-//                    cardColor = "#C2549C"
-//                )
-//            )
-//            businessCardRepository.save(
-//                BusinessCard(
-//                    nome = "Wilhuff Tarkin",
-//                    empresa = "Death Star Operations Division",
-//                    email = "grand_moff@dsod.empire.org",
-//                    telefone = "999-8888-9999",
-//                    cardColor = "#9BA4B7"
-//                )
-//            )
-//        }
-//    }
+    fun remove(businessCard: BusinessCard) {
+        viewModelScope.launch {
+            businessCardRepository.remove(businessCard)
+        }
+    }
 }

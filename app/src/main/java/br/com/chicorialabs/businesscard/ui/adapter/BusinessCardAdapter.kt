@@ -12,13 +12,14 @@ import br.com.chicorialabs.businesscard.databinding.ItemBusinesscardBinding
  * O adapter implementa a interface ListAdapter com DiffUtil; tanto a inflação do layout
  * quanto a vinculação de dados ocorrem na classe ViewHolder.
  */
-class BusinessCardAdapter : ListAdapter<BusinessCard, BusinessCardAdapter.BusinessCardViewHolder>(BusinessCardDiffCallback()) {
+class BusinessCardAdapter(val cardListener: BusinessCardListener) : ListAdapter<BusinessCard,
+        BusinessCardAdapter.BusinessCardViewHolder>(BusinessCardDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessCardViewHolder =
         BusinessCardViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: BusinessCardViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), cardListener)
     }
 
 
@@ -36,12 +37,12 @@ class BusinessCardAdapter : ListAdapter<BusinessCard, BusinessCardAdapter.Busine
          * tudo manualmente aqui na classe ViewHolder, mas preferi adotar BindingAdapters para
          * deixar a solução mais flexível e fácil de manter.
          */
-            fun bind(item: BusinessCard) {
+            fun bind(item: BusinessCard, cardListener: BusinessCardListener) {
                 with(binding) {
                     businessCard = item
+                    listener = cardListener
                     executePendingBindings()
                 }
-//                TODO: vincular um clickListener
             }
 
         /**

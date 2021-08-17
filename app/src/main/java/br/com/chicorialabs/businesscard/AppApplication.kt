@@ -7,6 +7,9 @@ import br.com.chicorialabs.businesscard.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
+
 
 /**
  * Essa classe é o ponto de acesso ao aplicativo. No método onCreate() se faz a inicialização
@@ -23,5 +26,12 @@ class AppApplication : Application() {
             modules(repositoryModule)
             modules(daoModule)
         }
+
+        /**
+         * Um hack rápido para evitar a FileUriExposedException. Se fosse um app de produção
+         * deveria ser usada uma solução baseada em ContentProvider.
+         */
+        val builder = VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
     }
 }

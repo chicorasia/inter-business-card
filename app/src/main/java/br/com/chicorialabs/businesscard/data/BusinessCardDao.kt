@@ -21,4 +21,7 @@ interface BusinessCardDao {
     @Query("SELECT * FROM table_businesscard")
     fun getAll() : LiveData<List<BusinessCard>>
 
+    @Delete
+    suspend fun remove(businessCard: BusinessCard)
+
 }
