@@ -15,6 +15,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **ListAdapter e ViewHolder**. Adotei melhores práticas como a delegação das responsabilidade de inflar o layout e fazer o binding dos dados a partir da classe ViewHolder, e não nos métodos da classe ListAdapter.
 - **DataBinding bidirecional**. Reduzir o acoplamento de código entre Fragment, XML e ViewModel.
 - **Documentação extensiva**. Cada classe traz comentários para explicar o funcionamento e as decisões de projeto.
+- **Mecanismo de busca**. Buscas dinâmicas e responsivas usando `Transformations.switchMap { }` para exibição dos resultados.
 - **Versionamento segundo princípios de GitFlow.** 
 - **Clean Architecture**
 
