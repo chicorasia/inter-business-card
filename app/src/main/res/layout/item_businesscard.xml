@@ -53,7 +53,7 @@ fazer a vinculação dos dados a partir do objeto recebido -->
                     android:id="@+id/itemShareBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_share"
+                    android:src="@drawable/ic_ios_share"
                     android:onClick="@{(view) -> listener.onShareBtnClick(itemCardView)}"
                     android:clickable="true"
                     app:layout_constraintEnd_toEndOf="parent"
