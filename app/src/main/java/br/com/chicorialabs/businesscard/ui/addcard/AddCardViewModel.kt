@@ -1,11 +1,9 @@
 package br.com.chicorialabs.businesscard.ui.addcard
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import br.com.chicorialabs.businesscard.data.BusinessCard
 import br.com.chicorialabs.businesscard.data.BusinessCardRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -24,9 +22,27 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
         get() = _newCard
 
     /**
+     * Uma variável que recebe um cartão do HomeFragment quando se trata de edição
+     * de um BusinessCard já existente.
+     */
+    private val _receivedCard = MutableLiveData<BusinessCard>(null)
+    val receivedCard: BusinessCard?
+        get() = _receivedCard?.value
+
+    /**
+     * Essa variável permite modificar o título da tela caso seja uma edição de
+     * cartão existente. O boolean é passado por um BindingAdapter para decidir
+     * qual string de texto deve ser exibida.
+     */
+    val showEditLabel = Transformations.map(_receivedCard) {
+        it != null
+    }
+
+    /**
      * Esses campos servem para fazer o DataBinding bidirecional com os componentes EditText
-     * do layout. Eles são inicializados com strings vazias, mas no momento da criação
-     * do BusinessCard é aplicada uma regra de validação.
+     * do layout. Eles são inicializados com strings vazias e podem ser alterados no método
+     * initFields(), quando é recebido um BusinessCard. No momento da criação do cartão
+     * o campo nome passa por um teste de validação.
      */
     val nomeField = MutableLiveData<String>("")
     val telefoneField = MutableLiveData<String>("")
@@ -34,6 +50,10 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
     val emailField = MutableLiveData<String>("")
     val cardColorField = MutableLiveData<String>("#FF32A586")
 
+
+    /**
+     * Cria um novo cartão a partir dos valores nos campos EditText.
+     */
     fun createNewCard() {
         val nome = nomeField.value.toString()
         if (nomeIsValid(nome)) {
@@ -44,7 +64,7 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
                 email = emailField.value.toString(),
                 cardColor = cardColorField.value.toString()
             )
-            saveNewCard()
+            saveCard()
         }
 //        TODO: adicionar uma mensagem de erro de validação do nome
     }
@@ -64,11 +84,23 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
     /**
      * Vai salvar o BusinessCard no repositório somente quando o valor não for nulo - ou seja,
      * depois que um cartão tenha sido criado.
+     * Verifica se foi recebido um cartão. Caso positivo, atualiza o cartão no repositório.
+     * Senão, grava um novo cartão.
      */
-    private fun saveNewCard() {
-        newCard.value?.let {
+    private fun saveCard() {
+        if (receivedCard != null) {
             viewModelScope.launch {
-                businessCardRepository.save(it)
+                newCard.value?.let {
+                    businessCardRepository.update(
+                        it.copy(id = receivedCard?.id!!)
+                    )
+                }
+            }
+        } else {
+            newCard.value?.let {
+                viewModelScope.launch {
+                    businessCardRepository.save(it)
+                }
             }
         }
         doneNavigateToHomeFragment()
@@ -77,4 +109,29 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
     fun doneNavigateToHomeFragment() {
         _newCard.value = null
     }
+
+
+    /**
+     * Recebe um BusinessCard e atribui à variável _receivedCard
+     */
+    fun receiveCard(businessCard: BusinessCard) {
+        with(businessCard){
+            _receivedCard.value = businessCard
+            initFields(this)
+        }
+    }
+
+    /**
+     * Inicializa os campos do formulário com os valores do
+     * cartão recebido.
+     */
+    fun initFields(businessCard: BusinessCard) {
+        with(businessCard) {
+            nomeField.value = nome
+            telefoneField.value = telefone
+            empresaField.value = empresa
+            emailField.value = email
+        }
+    }
+
 }

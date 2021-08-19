@@ -20,6 +20,15 @@
         android:id="@+id/addCardFragment"
         android:name="br.com.chicorialabs.businesscard.ui.addcard.AddCardFragment"
         android:label="fragment_add_card"
-        tools:layout="@layout/fragment_add_card" />
+        tools:layout="@layout/fragment_add_card" >
+        <argument
+            android:name="cardId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="businessCard"
+            app:argType="br.com.chicorialabs.businesscard.data.BusinessCard"
+            app:nullable="true" />
+    </fragment>
     <action android:id="@+id/retorna_HomeFragment" app:destination="@id/homeFragment" />
 </navigation>

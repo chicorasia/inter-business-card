@@ -1,7 +1,10 @@
 package br.com.chicorialabs.businesscard.ui
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import br.com.chicorialabs.businesscard.R
 import br.com.chicorialabs.businesscard.databinding.ActivityMainBinding
 
@@ -19,4 +22,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
     }
+
 }

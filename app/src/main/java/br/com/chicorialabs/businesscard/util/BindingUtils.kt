@@ -1,7 +1,11 @@
 package br.com.chicorialabs.businesscard.util
 
 import android.graphics.Color
+import android.widget.EditText
+import android.widget.SearchView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import br.com.chicorialabs.businesscard.R
 import br.com.chicorialabs.businesscard.data.BusinessCard
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
@@ -48,4 +52,14 @@ fun MaterialCardView.setItemBackGroundColor(item: BusinessCard?) {
     }
 }
 
+@BindingAdapter("cardFormFragmentLabel")
+fun MaterialTextView.setLabel(isEdit: Boolean) {
+    isEdit?.let {
+        if (!it) {
+            text = context.getString(R.string.description_add_card_fragment)
+        } else {
+            text = context.getString(R.string.description_edit_card_fragment)
+        }
+    }
+}
 

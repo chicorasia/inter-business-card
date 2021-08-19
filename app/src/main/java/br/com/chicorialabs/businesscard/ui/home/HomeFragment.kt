@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -60,9 +61,9 @@ class HomeFragment : Fragment() {
      * passando os respectivos parâmetros.
      */
     private fun initBusinessCardList() {
-        mHomeViewModel.listBusinessCard.observe(viewLifecycleOwner) {
-            val adapter = BusinessCardAdapter(BusinessCardListener(clickListener = { id ->
-                Toast.makeText(context, "Clicou no id: $id", Toast.LENGTH_SHORT).show()
+        mHomeViewModel.filteredListBusinessCard.observe(viewLifecycleOwner) {
+            val adapter = BusinessCardAdapter(BusinessCardListener(clickListener = { businessCard ->
+                navigateToEditCardFragment(businessCard)
             }, longClickListener = { businessCard ->
                 showRemoveDialog(businessCard)
                 true
@@ -70,10 +71,40 @@ class HomeFragment : Fragment() {
                 context?.let { context -> Image.share(context, it) }
             }
             ))
+
+            initSearchBar()
+
             binding.homeRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.homeRecyclerView.adapter = adapter
             adapter.submitList(it)
         }
+    }
+
+    /**
+     * Inicializa o listener de alterações no texto da barra de busca. Usei uma object expression
+     * para criar uma classe anônima que implementa a interface OnQueryTextListener. Esse foi um
+     * poucos métodos que não consegui vincular no XML por meio de DataBinding. De qualquer maneira,
+     * a lógica de busca acontece no ViewModel.
+     */
+    private fun initSearchBar() {
+        binding.homeSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    mHomeViewModel.setSearchQuery(it)
+                    return true
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    mHomeViewModel.setSearchQuery(it)
+                    return true
+                }
+                return false
+            }
+        })
     }
 
     /**
@@ -112,8 +143,14 @@ class HomeFragment : Fragment() {
      * e navega para o AddCardFragment.
      */
     private fun navigateToAddCardFragment() {
-        val direction = HomeFragmentDirections.navegaParaAdicionaCartao()
+        val direction = HomeFragmentDirections.navegaParaAdicionaCartao(null)
         findNavController().navigate(direction)
+    }
+
+    private fun navigateToEditCardFragment(businessCard: BusinessCard) {
+        val direction = HomeFragmentDirections.navegaParaAdicionaCartao(businessCard)
+        findNavController().navigate(direction)
+
     }
 
 

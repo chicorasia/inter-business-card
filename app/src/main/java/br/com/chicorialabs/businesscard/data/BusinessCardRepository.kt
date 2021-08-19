@@ -1,6 +1,7 @@
 package br.com.chicorialabs.businesscard.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 /**
  * Um repositório com acesso à database por meio da interface BusinessCardDao.
@@ -33,5 +34,12 @@ class BusinessCardRepository(
     suspend fun remove(businessCard: BusinessCard) {
         businessCardDao.remove(businessCard)
     }
+
+    fun get(cardId: Long): BusinessCard? = businessCardDao.get(cardId)
+
+    suspend fun update(businessCard: BusinessCard) {
+        businessCardDao.update(businessCard)
+    }
+
 
 }

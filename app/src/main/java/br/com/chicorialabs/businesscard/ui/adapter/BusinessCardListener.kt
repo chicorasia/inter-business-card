@@ -9,13 +9,13 @@ import br.com.chicorialabs.businesscard.data.BusinessCard
  * no Fragment ou, de preferência, no ViewModel.
  */
 class BusinessCardListener(
-    val clickListener: (id: Long) -> Unit,
+    val clickListener: (businessCard: BusinessCard) -> Unit,
     val shareBtnClickListener: (view: View) -> Unit,
     val longClickListener: (businessCard: BusinessCard) -> Boolean
 ) {
 
     fun onClick(businessCard: BusinessCard) {
-        clickListener(businessCard.id)
+        clickListener(businessCard)
     }
 
     fun onLongClick(businessCard: BusinessCard) : Boolean {

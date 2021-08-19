@@ -43,6 +43,52 @@ class HomeViewModel(val businessCardRepository: BusinessCardRepository
     }
 
     /**
+     * Esse campo representa a query de busca. Como esse campo é manipulado
+     * por um método setter ele pode ser privado.
+     */
+
+    private val _searchQuery = MutableLiveData<CharSequence>("")
+
+    /**
+     * Um método para modificar a _searchQuery
+     */
+    fun setSearchQuery(query: CharSequence?) {
+        query?.let {
+            _searchQuery.value = it
+        }
+    }
+
+    /**
+     * A lista filtrada é exposta para o Fragment. Como o filtro é aplicado
+     * dinamicamente e gera uma nova lista, os dados do repositório não
+     * são modificados.
+     */
+    val filteredListBusinessCard: LiveData<List<BusinessCard>> =
+        applySearchFilter(listBusinessCard)
+
+    /**
+     * Esse método filtra a lista conforme a string _searchQuery, usando a função
+     * Transformations.switchMap { }. Ele observa mudanças no valor da _searchQuery
+     * e atualiza a lista, emitindo-a como uma LiveData<List<BusinessCard>>. O filtro
+     * busca por matches em 3 campos: nome, email e empresa.
+     */
+    fun applySearchFilter(list: LiveData<List<BusinessCard>>) : LiveData<List<BusinessCard>> =
+        Transformations.switchMap(_searchQuery) {
+            list.map { list ->
+                _searchQuery.value?.let {
+                    list.filter { businessCard ->
+                        val query = _searchQuery.value.toString()
+                        with(businessCard) {
+                            empresa.contains(query, true) ||
+                            nome.contains(query, true) ||
+                            email.contains(query, true)
+                        }
+                    }
+                }
+            }
+        }
+
+    /**
      * Esse campo é observado pelo HomeFragment; quando o valor é true se dispara
      * a navegação para o AddCardFragment.
      */
