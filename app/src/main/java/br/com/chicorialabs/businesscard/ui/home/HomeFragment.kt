@@ -62,8 +62,8 @@ class HomeFragment : Fragment() {
      */
     private fun initBusinessCardList() {
         mHomeViewModel.filteredListBusinessCard.observe(viewLifecycleOwner) {
-            val adapter = BusinessCardAdapter(BusinessCardListener(clickListener = { id ->
-                Toast.makeText(context, "Clicou no id: $id", Toast.LENGTH_SHORT).show()
+            val adapter = BusinessCardAdapter(BusinessCardListener(clickListener = { businessCard ->
+                navigateToEditCardFragment(businessCard)
             }, longClickListener = { businessCard ->
                 showRemoveDialog(businessCard)
                 true
@@ -143,8 +143,14 @@ class HomeFragment : Fragment() {
      * e navega para o AddCardFragment.
      */
     private fun navigateToAddCardFragment() {
-        val direction = HomeFragmentDirections.navegaParaAdicionaCartao()
+        val direction = HomeFragmentDirections.navegaParaAdicionaCartao(null)
         findNavController().navigate(direction)
+    }
+
+    private fun navigateToEditCardFragment(businessCard: BusinessCard) {
+        val direction = HomeFragmentDirections.navegaParaAdicionaCartao(businessCard)
+        findNavController().navigate(direction)
+
     }
 
 

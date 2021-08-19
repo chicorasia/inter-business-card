@@ -24,4 +24,10 @@ interface BusinessCardDao {
     @Delete
     suspend fun remove(businessCard: BusinessCard)
 
+    @Query("SELECT * FROM table_businesscard WHERE id = :key")
+    fun get(key: Long) : BusinessCard?
+
+    @Update
+    suspend fun update(businessCard: BusinessCard)
+
 }

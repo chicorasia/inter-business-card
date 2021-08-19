@@ -18,4 +18,5 @@
     <string name="label_no">Não</string>
     <string name="label_yes">Sim</string>
     <string name="dialog_title_delete">Apagar cartão</string>
+    <string name="description_edit_card_fragment">Editar um cartão</string>
 </resources>

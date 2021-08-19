@@ -31,7 +31,6 @@ fazer a vinculação dos dados a partir do objeto recebido -->
             android:layout_marginStart="@dimen/card_margin"
             android:layout_marginEnd="@dimen/card_margin"
             android:layout_marginBottom="@dimen/half_margin"
-            android:onClick="@{() -> listener.onClick(businessCard)}"
             android:onLongClick="@{() -> listener.onLongClick(businessCard)}"
             android:clickable="true"
             itemBackgroundColor="@{businessCard}"
@@ -49,6 +48,18 @@ fazer a vinculação dos dados a partir do objeto recebido -->
                 android:padding="@dimen/card_padding">
 
 <!--                Passa o MaterialCardView como parâmetro do método onShareBtnClick() -->
+                <ImageButton
+                    android:id="@+id/itemEditBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_edit"
+                    android:onClick="@{() -> listener.onClick(businessCard)}"
+                    android:clickable="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/itemShareBtn"
+                    android:background="?attr/actionBarItemBackground"
+                    app:tint="@color/cardTextColor" />
+
                 <ImageButton
                     android:id="@+id/itemShareBtn"
                     android:layout_width="wrap_content"
