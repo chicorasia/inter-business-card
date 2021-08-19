@@ -50,6 +50,11 @@ Primeira versão com funcionalidades essenciais:
 
 ![Screenshot_3](Screenshot_3.png)
 
+![Screenshot_4](Screenshot_4.png)
+
+![Screenshot_5](Screenshot_5.png)
+
+
 
 
 ****
