@@ -4,6 +4,7 @@ App desenvolvido no módulo *Criando um app de cartão de visitas em Kotlin* do 
 
 Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnologias e soluções:
 
+- **CRUD completo**. O app suporta as quatro operações: criar, ler, atualizar e deletar itens. 
 - **Injeção de dependências por meio da biblioteca Koin.** Adotei essa solução porque tenho bastante familiaridade com a ferramenta e acredito que deixa o código mais enxuto, além de simplificar a injeção de dependências nos ViewModels e outros componentes.
 - **Arquitetura MVVM baseada em Fragments**. Optei por organizar o app em Fragments com ViewModel; a MainActivity tem somente a responsabilidade de manter o NavHostController. Adotei essa solução por ser uma arquitetura mais atual.
 - **Android Navigation Component**. Optei por essa solução, em conjunto com os Fragments, porque acredito que dá mais flexibilidade e permite fluxos de navegação mais sofisticados.
@@ -15,12 +16,20 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **ListAdapter e ViewHolder**. Adotei melhores práticas como a delegação das responsabilidade de inflar o layout e fazer o binding dos dados a partir da classe ViewHolder, e não nos métodos da classe ListAdapter.
 - **DataBinding bidirecional**. Reduzir o acoplamento de código entre Fragment, XML e ViewModel.
 - **Documentação extensiva**. Cada classe traz comentários para explicar o funcionamento e as decisões de projeto.
+- **Mecanismo de busca**. Buscas dinâmicas e responsivas usando `Transformations.switchMap { }` para exibição dos resultados.
 - **Versionamento segundo princípios de GitFlow.** 
 - **Clean Architecture**
 
 
 
 ## Histórico de versões
+
+##### Versão 0.2
+
+Adicionadas as funcionalidades:
+
+- Busca de itens em tempo real
+- Editar um cartão
 
 #### Versão 0.1
 
