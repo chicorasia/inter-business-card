@@ -32,6 +32,8 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 - **Clean Architecture**. Adoção de princípios da arquitetura limpa: classes de dados armazenadas em um pacote *domain*, cada de infraestrutura (*database*) acessada por meio de *use cases*, entre outros.
 
+- **Teste unitários**. Uso pontual de testes automatizados.
+
 - **Versionamento segundo princípios de GitFlow.** 
 
   
