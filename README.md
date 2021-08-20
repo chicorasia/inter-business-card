@@ -30,7 +30,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 - **Mecanismo de busca**. Buscas dinâmicas e responsivas usando `Transformations.switchMap { }` para exibição dos resultados.
 
-- **Clean Architecture**. Adoção de princípios da arquitetura limpa: classes de dados armazenadas em um pacote *domain*, cada de infraestrutura (*database*) acessada por meio de *use cases*, entre outros.
+- **Clean Architecture**. Adoção de princípios da arquitetura limpa: classes de dados organizadas em um pacote *domain*, camada de infraestrutura (*database*) acessada por meio de *use cases*, entre outros.
 
 - **Teste unitários**. Uso pontual de testes automatizados.
 
