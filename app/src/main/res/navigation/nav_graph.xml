@@ -27,7 +27,7 @@
             android:defaultValue="0L" />
         <argument
             android:name="businessCard"
-            app:argType="br.com.chicorialabs.businesscard.data.BusinessCard"
+            app:argType="br.com.chicorialabs.businesscard.domain.BusinessCard"
             app:nullable="true" />
     </fragment>
     <action android:id="@+id/retorna_HomeFragment" app:destination="@id/homeFragment" />

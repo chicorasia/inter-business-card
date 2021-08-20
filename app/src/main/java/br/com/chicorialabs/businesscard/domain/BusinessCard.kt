@@ -1,4 +1,4 @@
-package br.com.chicorialabs.businesscard.data
+package br.com.chicorialabs.businesscard.domain
 
 import android.os.Parcelable
 import androidx.room.Entity

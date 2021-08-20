@@ -2,6 +2,7 @@ package br.com.chicorialabs.businesscard.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 
 /**
  * Uma interface para acesso aos dados por meio do repositório. Usando as annotations

@@ -9,7 +9,7 @@ fazer a vinculação dos dados a partir do objeto recebido -->
     <data>
         <variable
             name="businessCard"
-            type="br.com.chicorialabs.businesscard.data.BusinessCard"/>
+            type="br.com.chicorialabs.businesscard.domain.BusinessCard"/>
         <variable
             name="listener"
             type="br.com.chicorialabs.businesscard.ui.adapter.BusinessCardListener" />

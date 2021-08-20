@@ -7,13 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.chicorialabs.businesscard.R
-import br.com.chicorialabs.businesscard.data.BusinessCard
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 import br.com.chicorialabs.businesscard.databinding.HomeFragmentBinding
 import br.com.chicorialabs.businesscard.ui.adapter.BusinessCardAdapter
 import br.com.chicorialabs.businesscard.ui.adapter.BusinessCardListener

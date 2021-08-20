@@ -2,8 +2,9 @@ package br.com.chicorialabs.businesscard.ui.home
 
 import android.view.View
 import androidx.lifecycle.*
-import br.com.chicorialabs.businesscard.data.BusinessCard
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 import br.com.chicorialabs.businesscard.data.BusinessCardRepository
+import br.com.chicorialabs.businesscard.usecase.ApplySearchFilterUseCase
 import kotlinx.coroutines.launch
 
 
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
  * ao repositório. A UI do HomeFragment é manipulada a partir das
  * mudanças nos campos do ViewModel.
  */
-class HomeViewModel(val businessCardRepository: BusinessCardRepository
+class HomeViewModel(val businessCardRepository: BusinessCardRepository,
+                    val applySearchFilterUseCase: ApplySearchFilterUseCase = ApplySearchFilterUseCase()
 ) : ViewModel() {
 
     /**
@@ -48,6 +50,8 @@ class HomeViewModel(val businessCardRepository: BusinessCardRepository
      */
 
     private val _searchQuery = MutableLiveData<CharSequence>("")
+    val searchQuery: LiveData<CharSequence>
+        get() = _searchQuery
 
     /**
      * Um método para modificar a _searchQuery
@@ -64,29 +68,8 @@ class HomeViewModel(val businessCardRepository: BusinessCardRepository
      * são modificados.
      */
     val filteredListBusinessCard: LiveData<List<BusinessCard>> =
-        applySearchFilter(listBusinessCard)
+        applySearchFilterUseCase.filterList(listBusinessCard, searchQuery)
 
-    /**
-     * Esse método filtra a lista conforme a string _searchQuery, usando a função
-     * Transformations.switchMap { }. Ele observa mudanças no valor da _searchQuery
-     * e atualiza a lista, emitindo-a como uma LiveData<List<BusinessCard>>. O filtro
-     * busca por matches em 3 campos: nome, email e empresa.
-     */
-    fun applySearchFilter(list: LiveData<List<BusinessCard>>) : LiveData<List<BusinessCard>> =
-        Transformations.switchMap(_searchQuery) {
-            list.map { list ->
-                _searchQuery.value?.let {
-                    list.filter { businessCard ->
-                        val query = _searchQuery.value.toString()
-                        with(businessCard) {
-                            empresa.contains(query, true) ||
-                            nome.contains(query, true) ||
-                            email.contains(query, true)
-                        }
-                    }
-                }
-            }
-        }
 
     /**
      * Esse campo é observado pelo HomeFragment; quando o valor é true se dispara

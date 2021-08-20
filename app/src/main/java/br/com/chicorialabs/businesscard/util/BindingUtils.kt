@@ -1,12 +1,9 @@
 package br.com.chicorialabs.businesscard.util
 
 import android.graphics.Color
-import android.widget.EditText
-import android.widget.SearchView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
 import br.com.chicorialabs.businesscard.R
-import br.com.chicorialabs.businesscard.data.BusinessCard
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 

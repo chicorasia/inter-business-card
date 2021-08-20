@@ -1,18 +1,15 @@
 package br.com.chicorialabs.businesscard.ui.addcard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import br.com.chicorialabs.businesscard.data.BusinessCard
 import br.com.chicorialabs.businesscard.databinding.FragmentAddCardBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -48,6 +45,7 @@ class AddCardFragment : Fragment() {
             }
         }
 
+
         /**
          * Fazer a vinculação do NavController com o campo variable definido no
          * arquivo XML; fazer a vinculaçõo do lifeCycleOwner.
@@ -55,6 +53,12 @@ class AddCardFragment : Fragment() {
         binding.navController = findNavController()
         binding.lifecycleOwner = viewLifecycleOwner
 
+        mAddCardViewModel.errorSnackbar.observe(viewLifecycleOwner) {
+            it?.let {
+                Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+                Log.i("BusinessCard", "snackBar msg: $it")
+            }
+        }
         /**
          * Fazer a vinculação entre o campo viewModel do layout XML e
          * o ViewModel da atividade. Esse é um detalhe que é fácil de esquecer

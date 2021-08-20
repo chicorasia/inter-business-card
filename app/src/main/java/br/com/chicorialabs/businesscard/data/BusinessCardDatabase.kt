@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 
 /**
  * Essa classe abstrata representa a database. Ela mantém somente a entidade BusinessCard.

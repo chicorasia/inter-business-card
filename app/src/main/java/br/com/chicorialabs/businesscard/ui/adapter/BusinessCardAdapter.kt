@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import br.com.chicorialabs.businesscard.data.BusinessCard
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 import br.com.chicorialabs.businesscard.databinding.ItemBusinesscardBinding
 
 /**

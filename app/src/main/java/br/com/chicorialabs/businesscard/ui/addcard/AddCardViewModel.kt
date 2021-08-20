@@ -1,15 +1,22 @@
 package br.com.chicorialabs.businesscard.ui.addcard
 
 import androidx.lifecycle.*
-import br.com.chicorialabs.businesscard.data.BusinessCard
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 import br.com.chicorialabs.businesscard.data.BusinessCardRepository
-import kotlinx.coroutines.Dispatchers
+import br.com.chicorialabs.businesscard.domain.BusinessCardEither
+import br.com.chicorialabs.businesscard.domain.BusinessCardValidation
+import br.com.chicorialabs.businesscard.usecase.SaveToDatabaseUseCase
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 /**
  * Essa classe dá suporte ao fragmento de Adicionar Cartão
  */
-class AddCardViewModel(private val businessCardRepository: BusinessCardRepository) : ViewModel() {
+class AddCardViewModel(
+    private val businessCardRepository: BusinessCardRepository,
+) : ViewModel() {
+
+    private val saveToDatabaseUseCase = SaveToDatabaseUseCase()
 
     /**
      * Essa variável representa o BusinessCard que será criado. Ela é iniciada com valor nulo e,
@@ -39,6 +46,13 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
     }
 
     /**
+     * Para mostrar um
+     */
+    private var _errorSnackbar = MutableLiveData<String?>(null)
+    val errorSnackbar: LiveData<String?>
+        get() = _errorSnackbar
+
+    /**
      * Esses campos servem para fazer o DataBinding bidirecional com os componentes EditText
      * do layout. Eles são inicializados com strings vazias e podem ser alterados no método
      * initFields(), quando é recebido um BusinessCard. No momento da criação do cartão
@@ -52,27 +66,34 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
 
 
     /**
-     * Cria um novo cartão a partir dos valores nos campos EditText.
+     * Cria um cartão a partir dos dados informados pelo usuário e submete à validaçãp
+     * por meio da classe BusinessCardValidation. Recebe de volta o objeto Either<T, U>
+     * e faz a gravação do cartão (se válido) ou o tratamento da exceção (se não for válido).
      */
     fun createNewCard() {
-        val nome = nomeField.value.toString()
-        if (nomeIsValid(nome)) {
-            _newCard.value = BusinessCard(
-                nome = nome,
-                empresa = empresaField.value.toString(),
-                telefone = telefoneField.value.toString(),
-                email = emailField.value.toString(),
-                cardColor = cardColorField.value.toString()
-            )
-            saveCard()
+        val mBusinessCard = BusinessCard(
+            nome = nomeField.value.toString(),
+            empresa = empresaField.value.toString(),
+            telefone = telefoneField.value.toString(),
+            email = emailField.value.toString(),
+            cardColor = cardColorField.value.toString()
+        )
+        val either = BusinessCardValidation.validate(mBusinessCard) as BusinessCardEither
+        with(either) {
+            businessCard?.let {
+                _newCard.value = it
+                saveCard()
+            }
+            exception?.let {
+                _errorSnackbar.value = it.message
+                errorSnackbarShown()
+            }
         }
-//        TODO: adicionar uma mensagem de erro de validação do nome
     }
 
-    /**
-     * O nome do contato deve ter pelo menos 3 caracteres. Os outros campos podem ser vazios.
-     */
-    private fun nomeIsValid(nome: String?): Boolean = !nome.isNullOrEmpty() && nome.length >= 3
+    private fun errorSnackbarShown() {
+        _errorSnackbar.value = null
+    }
 
     /**
      * Define a cor do card
@@ -80,6 +101,7 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
     fun setCardColor(color: String) {
         cardColorField.value = color
     }
+
 
     /**
      * Vai salvar o BusinessCard no repositório somente quando o valor não for nulo - ou seja,
@@ -89,33 +111,52 @@ class AddCardViewModel(private val businessCardRepository: BusinessCardRepositor
      */
     private fun saveCard() {
         if (receivedCard != null) {
-            viewModelScope.launch {
+            launchDataSave {
                 newCard.value?.let {
-                    businessCardRepository.update(
-                        it.copy(id = receivedCard?.id!!)
+                    saveToDatabaseUseCase.updateCardInDatabase(
+                        it.copy(id = receivedCard?.id!!),
+                        businessCardRepository
                     )
                 }
             }
         } else {
-            newCard.value?.let {
-                viewModelScope.launch {
-                    businessCardRepository.save(it)
+            launchDataSave {
+                newCard.value?.let {
+                    saveToDatabaseUseCase
+                        .saveNewCardToDatabase(it, businessCardRepository)
                 }
             }
+
         }
         doneNavigateToHomeFragment()
     }
 
-    fun doneNavigateToHomeFragment() {
+    /**
+     * Reseta o _newCard depois de fazer a gravação
+     */
+    private fun doneNavigateToHomeFragment() {
         _newCard.value = null
     }
 
+    /**
+     * Uma função do tipo suspend lambda para organizar e simplificar as chamadas de funcões
+     * de suspensão.
+     */
+    private fun launchDataSave(block: suspend () -> Unit) {
+        viewModelScope.launch {
+            try {
+                block()
+            } catch (ex: Exception) {
+                _errorSnackbar.value = ex.message
+            }
+        }
+    }
 
     /**
      * Recebe um BusinessCard e atribui à variável _receivedCard
      */
     fun receiveCard(businessCard: BusinessCard) {
-        with(businessCard){
+        with(businessCard) {
             _receivedCard.value = businessCard
             initFields(this)
         }

@@ -1,7 +1,7 @@
 package br.com.chicorialabs.businesscard.ui.adapter
 
 import android.view.View
-import br.com.chicorialabs.businesscard.data.BusinessCard
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 
 /**
  * Essa classe mantém os click listeners para o item da

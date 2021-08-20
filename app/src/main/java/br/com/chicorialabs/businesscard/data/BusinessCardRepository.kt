@@ -1,7 +1,7 @@
 package br.com.chicorialabs.businesscard.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import br.com.chicorialabs.businesscard.domain.BusinessCard
 
 /**
  * Um repositório com acesso à database por meio da interface BusinessCardDao.
