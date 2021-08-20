@@ -3,8 +3,9 @@ package br.com.chicorialabs.businesscard.ui.home
 import android.view.View
 import androidx.lifecycle.*
 import br.com.chicorialabs.businesscard.domain.BusinessCard
-import br.com.chicorialabs.businesscard.data.BusinessCardRepository
 import br.com.chicorialabs.businesscard.usecase.ApplySearchFilterUseCase
+import br.com.chicorialabs.businesscard.usecase.ReadFromDatabaseUseCase
+import br.com.chicorialabs.businesscard.usecase.RemoveFromDatabaseUseCase
 import kotlinx.coroutines.launch
 
 
@@ -13,8 +14,10 @@ import kotlinx.coroutines.launch
  * ao repositório. A UI do HomeFragment é manipulada a partir das
  * mudanças nos campos do ViewModel.
  */
-class HomeViewModel(val businessCardRepository: BusinessCardRepository,
-                    val applySearchFilterUseCase: ApplySearchFilterUseCase = ApplySearchFilterUseCase()
+class HomeViewModel(
+    readFromDatabaseUseCase: ReadFromDatabaseUseCase,
+    private val removeFromDatabaseUseCase: RemoveFromDatabaseUseCase,
+    applySearchFilterUseCase: ApplySearchFilterUseCase
 ) : ViewModel() {
 
     /**
@@ -24,7 +27,7 @@ class HomeViewModel(val businessCardRepository: BusinessCardRepository,
      * Esse campo não é acessível diretamente pelo Fragment ou Activity.
      */
     private val _listBusinessCard: LiveData<List<BusinessCard>> =
-        businessCardRepository.listBusinessCard
+        readFromDatabaseUseCase.listBusinessCard
 
     /**
      * Esse campo fica exposto para o Fragment.
@@ -95,7 +98,7 @@ class HomeViewModel(val businessCardRepository: BusinessCardRepository,
      */
     fun remove(businessCard: BusinessCard) {
         viewModelScope.launch {
-            businessCardRepository.remove(businessCard)
+            removeFromDatabaseUseCase.remove(businessCard)
         }
     }
 }

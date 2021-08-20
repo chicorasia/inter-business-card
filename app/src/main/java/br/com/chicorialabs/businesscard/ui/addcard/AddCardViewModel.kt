@@ -2,21 +2,22 @@ package br.com.chicorialabs.businesscard.ui.addcard
 
 import androidx.lifecycle.*
 import br.com.chicorialabs.businesscard.domain.BusinessCard
-import br.com.chicorialabs.businesscard.data.BusinessCardRepository
-import br.com.chicorialabs.businesscard.domain.BusinessCardEither
 import br.com.chicorialabs.businesscard.domain.BusinessCardValidation
+import br.com.chicorialabs.businesscard.domain.Either
 import br.com.chicorialabs.businesscard.usecase.SaveToDatabaseUseCase
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 /**
- * Essa classe dá suporte ao fragmento de Adicionar Cartão
+ * Essa classe dá suporte ao fragmento de Adicionar Cartão. O acesso para gravação na
+ * database acontece por meio do atributo saveToDatabaseUseCase. Com isso, o
+ * ViewModel não mantém mais nenhuma referência ao repository. De fato, esse ViewModel
+ * lida somente com os aspectos visuais e de coletar as informações do usuário.
+ * A validação e o salvamento foram delegados para classes específicas.
  */
 class AddCardViewModel(
-    private val businessCardRepository: BusinessCardRepository,
+    private val saveToDatabaseUseCase: SaveToDatabaseUseCase
 ) : ViewModel() {
 
-    private val saveToDatabaseUseCase = SaveToDatabaseUseCase()
 
     /**
      * Essa variável representa o BusinessCard que será criado. Ela é iniciada com valor nulo e,
@@ -34,7 +35,7 @@ class AddCardViewModel(
      */
     private val _receivedCard = MutableLiveData<BusinessCard>(null)
     val receivedCard: BusinessCard?
-        get() = _receivedCard?.value
+        get() = _receivedCard.value
 
     /**
      * Essa variável permite modificar o título da tela caso seja uma edição de
@@ -46,7 +47,7 @@ class AddCardViewModel(
     }
 
     /**
-     * Para mostrar um
+     * Esse campo é usado para mostrar erros na forma de Snackbar.
      */
     private var _errorSnackbar = MutableLiveData<String?>(null)
     val errorSnackbar: LiveData<String?>
@@ -78,7 +79,7 @@ class AddCardViewModel(
             email = emailField.value.toString(),
             cardColor = cardColorField.value.toString()
         )
-        val either = BusinessCardValidation.validate(mBusinessCard) as BusinessCardEither
+        val either = BusinessCardValidation.validate(mBusinessCard) as Either.BusinessCardEither
         with(either) {
             businessCard?.let {
                 _newCard.value = it
@@ -91,6 +92,9 @@ class AddCardViewModel(
         }
     }
 
+    /**
+     * Reseta o Snackbar depois de exibido
+     */
     private fun errorSnackbarShown() {
         _errorSnackbar.value = null
     }
@@ -101,7 +105,6 @@ class AddCardViewModel(
     fun setCardColor(color: String) {
         cardColorField.value = color
     }
-
 
     /**
      * Vai salvar o BusinessCard no repositório somente quando o valor não for nulo - ou seja,
@@ -114,8 +117,7 @@ class AddCardViewModel(
             launchDataSave {
                 newCard.value?.let {
                     saveToDatabaseUseCase.updateCardInDatabase(
-                        it.copy(id = receivedCard?.id!!),
-                        businessCardRepository
+                        it.copy(id = receivedCard?.id!!)
                     )
                 }
             }
@@ -123,7 +125,7 @@ class AddCardViewModel(
             launchDataSave {
                 newCard.value?.let {
                     saveToDatabaseUseCase
-                        .saveNewCardToDatabase(it, businessCardRepository)
+                        .saveNewCardToDatabase(it)
                 }
             }
 
@@ -166,7 +168,7 @@ class AddCardViewModel(
      * Inicializa os campos do formulário com os valores do
      * cartão recebido.
      */
-    fun initFields(businessCard: BusinessCard) {
+    private fun initFields(businessCard: BusinessCard) {
         with(businessCard) {
             nomeField.value = nome
             telefoneField.value = telefone

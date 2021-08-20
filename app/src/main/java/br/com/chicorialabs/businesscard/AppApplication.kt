@@ -9,6 +9,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
+import br.com.chicorialabs.businesscard.di.useCaseModule
 
 
 /**
@@ -25,6 +26,7 @@ class AppApplication : Application() {
             modules(viewModelModule)
             modules(repositoryModule)
             modules(daoModule)
+            modules(useCaseModule)
         }
 
         /**

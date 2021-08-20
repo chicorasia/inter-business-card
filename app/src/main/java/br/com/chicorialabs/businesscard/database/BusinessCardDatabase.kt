@@ -1,4 +1,4 @@
-package br.com.chicorialabs.businesscard.data
+package br.com.chicorialabs.businesscard.database
 
 import android.content.Context
 import androidx.room.Database

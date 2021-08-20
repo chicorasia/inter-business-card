@@ -1,9 +1,13 @@
 package br.com.chicorialabs.businesscard.di
 
-import br.com.chicorialabs.businesscard.data.BusinessCardDatabase
-import br.com.chicorialabs.businesscard.data.BusinessCardRepository
+import br.com.chicorialabs.businesscard.database.BusinessCardDatabase
+import br.com.chicorialabs.businesscard.database.BusinessCardRepository
 import br.com.chicorialabs.businesscard.ui.addcard.AddCardViewModel
 import br.com.chicorialabs.businesscard.ui.home.HomeViewModel
+import br.com.chicorialabs.businesscard.usecase.ApplySearchFilterUseCase
+import br.com.chicorialabs.businesscard.usecase.ReadFromDatabaseUseCase
+import br.com.chicorialabs.businesscard.usecase.RemoveFromDatabaseUseCase
+import br.com.chicorialabs.businesscard.usecase.SaveToDatabaseUseCase
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -18,11 +22,10 @@ import org.koin.dsl.module
  * O mesmo vale para o HomeViewModel - que, no caso, recebe uma instância
  * do BusinessCardRepository.
  *
- * <<<Adicionei o AddCardViewModel>>>
  */
 
 val viewModelModule = module {
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { AddCardViewModel(get()) }
 }
 
@@ -32,4 +35,11 @@ val repositoryModule = module {
 
 val daoModule = module {
     single { BusinessCardDatabase.getInstance(androidContext()).businessCardDao }
+}
+
+val useCaseModule = module {
+    factory { SaveToDatabaseUseCase(get()) }
+    factory { ApplySearchFilterUseCase() }
+    factory { RemoveFromDatabaseUseCase(get()) }
+    factory { ReadFromDatabaseUseCase(get()) }
 }

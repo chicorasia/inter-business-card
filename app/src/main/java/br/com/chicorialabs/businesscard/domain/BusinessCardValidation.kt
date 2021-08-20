@@ -8,16 +8,17 @@ import br.com.chicorialabs.businesscard.exception.InvalidNameException
  */
 class BusinessCardValidation {
 
-
     companion object {
 
         const val NAME_TOO_SHORT_EXCEPTION = "O nome precisa ter ao menos 3 caracteres."
 
         fun validate(businessCard: BusinessCard): Either<BusinessCard?, Exception?> {
             return when (businessCard.nome.length) {
-                0, 1, 2 -> BusinessCardEither<BusinessCard?, Exception?>(null,
-                    InvalidNameException(NAME_TOO_SHORT_EXCEPTION))
-                else -> BusinessCardEither<BusinessCard?, Exception?>(businessCard, null)
+                0, 1, 2 -> Either.BusinessCardEither<BusinessCard?, Exception?>(
+                    null,
+                    InvalidNameException(NAME_TOO_SHORT_EXCEPTION)
+                )
+                else -> Either.BusinessCardEither<BusinessCard?, Exception?>(businessCard, null)
             }
         }
     }

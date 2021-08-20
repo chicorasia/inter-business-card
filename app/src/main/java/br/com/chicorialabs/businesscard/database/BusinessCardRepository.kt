@@ -1,4 +1,4 @@
-package br.com.chicorialabs.businesscard.data
+package br.com.chicorialabs.businesscard.database
 
 import androidx.lifecycle.LiveData
 import br.com.chicorialabs.businesscard.domain.BusinessCard
