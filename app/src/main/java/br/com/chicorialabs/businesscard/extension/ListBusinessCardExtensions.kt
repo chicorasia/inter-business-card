@@ -9,8 +9,8 @@ import br.com.chicorialabs.businesscard.ui.adapter.DataItem
  * Uma função de extensão para ordenar a lista alfabeticamente pelo
  * nome do contato.
  */
-fun LiveData<List<BusinessCard>>.sortedByName() : LiveData<List<BusinessCard>> =
-    this.map {  list ->
+fun LiveData<List<BusinessCard>>.sortedByName(): LiveData<List<BusinessCard>> =
+    this.map { list ->
         list.sortedBy { businessCard ->
             businessCard.nome
         }
@@ -21,18 +21,18 @@ fun LiveData<List<BusinessCard>>.sortedByName() : LiveData<List<BusinessCard>> =
  * com os cabeçalhos gerados a partir da primeira letra do nome. Em outras
  * palavras: agrupar os contatos pela inicial.
  */
-fun List<BusinessCard>.toListOfDataItem() : List<DataItem>? {
+fun List<BusinessCard>.toListOfDataItem(): List<DataItem> {
 
     val grouping = this.groupBy { businessCard ->
         businessCard.nome.first()
     }
 
     val listDataItem = mutableListOf<DataItem>()
-    grouping.forEach {
-        listDataItem.add(DataItem.Header(it.key))
+    grouping.forEach { mapEntry ->
+        listDataItem.add(DataItem.Header(mapEntry.key))
         listDataItem.addAll(
-            it.value.map {
-                DataItem.BusinessCardItem(it)
+            mapEntry.value.map { businessCard ->
+                DataItem.BusinessCardItem(businessCard)
             }
         )
     }
