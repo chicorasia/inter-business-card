@@ -6,6 +6,8 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 - **CRUD completo**. O app suporta as quatro operações: criar, ler, atualizar e deletar itens. 
 
+- **Agrupamento dos contatos.** Os contatos são agrupados em ordem alfabética pela inicial do primeiro nome. Essa *feature* foi implementado por meio do uso de diferentes ViewHolders na mesma RecyclerView.
+
 - **Injeção de dependências por meio da biblioteca Koin.** Adotei essa solução porque tenho bastante familiaridade com a ferramenta e acredito que deixa o código mais enxuto, além de simplificar a injeção de dependências nos ViewModels e outros componentes.
 
 - **Arquitetura MVVM baseada em Fragments**. Optei por organizar o app em Fragments com ViewModel; a MainActivity tem somente a responsabilidade de manter o NavHostController. Adotei essa solução por ser uma arquitetura mais atual.
@@ -32,7 +34,9 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 - **Clean Architecture**. Adoção de princípios da arquitetura limpa: classes de dados organizadas em um pacote *domain*, camada de infraestrutura (*database*) acessada por meio de *use cases*, entre outros.
 
-- **Teste unitários**. Uso pontual de testes automatizados.
+- **Sealed classes**. Adoção de classes seladas para os ViewHolders e Either (objeto de validação da entidade).
+
+- **Teste unitários**. Uso pontual de testes automatizados e implementação de algumas features por meio de **TDD - Test Driven Development**.
 
 - **Versionamento segundo princípios de GitFlow.** 
 
@@ -41,6 +45,11 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 
 ## Histórico de versões
+
+#### Versão 0.3
+
+- Lista de contatos ordenada alfabeticamente
+- Contados agrupados pela inicial do primeiro nome
 
 #### Versão 0.21
 
