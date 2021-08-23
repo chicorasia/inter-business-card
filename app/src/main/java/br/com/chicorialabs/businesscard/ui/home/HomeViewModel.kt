@@ -3,6 +3,7 @@ package br.com.chicorialabs.businesscard.ui.home
 import android.view.View
 import androidx.lifecycle.*
 import br.com.chicorialabs.businesscard.domain.BusinessCard
+import br.com.chicorialabs.businesscard.extension.sortedByName
 import br.com.chicorialabs.businesscard.usecase.ApplySearchFilterUseCase
 import br.com.chicorialabs.businesscard.usecase.ReadFromDatabaseUseCase
 import br.com.chicorialabs.businesscard.usecase.RemoveFromDatabaseUseCase
@@ -17,7 +18,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     readFromDatabaseUseCase: ReadFromDatabaseUseCase,
     private val removeFromDatabaseUseCase: RemoveFromDatabaseUseCase,
-    applySearchFilterUseCase: ApplySearchFilterUseCase
+    applySearchFilterUseCase: ApplySearchFilterUseCase,
+
 ) : ViewModel() {
 
     /**
@@ -68,10 +70,11 @@ class HomeViewModel(
     /**
      * A lista filtrada é exposta para o Fragment. Como o filtro é aplicado
      * dinamicamente e gera uma nova lista, os dados do repositório não
-     * são modificados.
+     * são modificados. Ao final é invocada uma função de extensão para
+     * ordenar a lista em ordem alfabética.
      */
     val filteredListBusinessCard: LiveData<List<BusinessCard>> =
-        applySearchFilterUseCase.filterList(listBusinessCard, searchQuery)
+        applySearchFilterUseCase.filterList(listBusinessCard, searchQuery).sortedByName()
 
 
     /**
