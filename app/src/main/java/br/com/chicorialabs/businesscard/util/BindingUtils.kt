@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.databinding.BindingAdapter
 import br.com.chicorialabs.businesscard.R
 import br.com.chicorialabs.businesscard.domain.BusinessCard
+import br.com.chicorialabs.businesscard.ui.adapter.DataItem
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 
@@ -57,6 +58,13 @@ fun MaterialTextView.setLabel(isEdit: Boolean) {
         } else {
             text = context.getString(R.string.description_edit_card_fragment)
         }
+    }
+}
+
+@BindingAdapter("cardHeaderKey")
+fun MaterialTextView.setKey(item: DataItem.Header){
+    item?.let { item ->
+        text = item.key.toString()
     }
 }
 

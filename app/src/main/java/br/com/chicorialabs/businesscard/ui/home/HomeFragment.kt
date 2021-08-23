@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
 
             binding.homeRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.homeRecyclerView.adapter = adapter
-            adapter.submitList(it)
+            adapter.addHeadersAndSubmitList(it)
         }
     }
 
