@@ -74,6 +74,8 @@ class HomeFragment : Fragment() {
 
             binding.homeRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.homeRecyclerView.adapter = adapter
+
+//            TODO 010: Modificar o observer para usar addHeaderAndSubmitList()
             adapter.submitList(it)
         }
     }

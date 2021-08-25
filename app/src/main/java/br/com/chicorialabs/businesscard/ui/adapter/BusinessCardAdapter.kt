@@ -8,12 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.chicorialabs.businesscard.domain.BusinessCard
 import br.com.chicorialabs.businesscard.databinding.ItemBusinesscardBinding
 
+//TODO 001: Criar uma sealed class DataItem
+//TODO 002: Criar um item XML para o Header
+//TODO 003: Criar constantes para os ViewTypes
+//TODO 004: Sobrescrever o método getItemViewType()
+//TODO 005: Reescrever o método onCreateViewHolder()
+//TODO 006: Reescrever a definição do Adapter com classes abstratas DataItem e DataItemViewHolder
+
 /**
  * O adapter implementa a interface ListAdapter com DiffUtil; tanto a inflação do layout
  * quanto a vinculação de dados ocorrem na classe ViewHolder.
  */
 class BusinessCardAdapter(val cardListener: BusinessCardListener) : ListAdapter<BusinessCard,
         BusinessCardAdapter.BusinessCardViewHolder>(BusinessCardDiffCallback()) {
+
+//    TODO 011: Definir um escopo de corrotina para o adapter
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessCardViewHolder =
         BusinessCardViewHolder.from(parent)
@@ -22,7 +33,12 @@ class BusinessCardAdapter(val cardListener: BusinessCardListener) : ListAdapter<
         holder.bind(getItem(position), cardListener)
     }
 
+//    TODO 009: Criar um método addHeaderAndSubmitList()
+//    TODO 012: Refatorar o método addHeaderAndSubmitList para usar o adapterScope
 
+
+
+//    TODO 007: Criar uma sealed class DataItemViewHolder que estende RecyclerView.ViewHolder
     /**
      * Implementei o ViewHolder como uma classe aninhada para conseguir adotar a boa prática
      * de fazer a inflação do ViewHolder a partir de si mesmo. O binding dos dados e métodos
