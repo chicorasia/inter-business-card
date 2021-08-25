@@ -63,6 +63,7 @@ sealed class DataItemViewHolder(open val binding: ViewBinding) :
         fun bind(item: DataItem.Header) {
             with(binding) {
                 header = item
+                executePendingBindings()
             }
         }
 

@@ -16,6 +16,6 @@ sealed class DataItem {
                                 override val id: Long = businessCard.id) : DataItem()
 
     data class Header(val key: Char,
-                      override val id: Long = Long.MIN_VALUE): DataItem()
+                      override val id: Long = key.code.toLong()): DataItem()
 
 }
