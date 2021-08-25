@@ -42,7 +42,7 @@ sealed class DataItemViewHolder(open val binding: ViewBinding) :
          * do ViewHolder passando apenas o parent.
          */
         companion object {
-            fun from(parent: ViewGroup): BusinessCardViewHolder {
+            fun from(parent: ViewGroup): DataItemViewHolder {
                 val binding: ItemBusinesscardBinding = ItemBusinesscardBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -68,7 +68,7 @@ sealed class DataItemViewHolder(open val binding: ViewBinding) :
         }
 
         companion object {
-            fun from(parent: ViewGroup): HeaderViewHolder {
+            fun from(parent: ViewGroup): DataItemViewHolder {
                 val binding: ItemHeaderBinding = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
