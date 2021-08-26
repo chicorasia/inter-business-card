@@ -15,4 +15,4 @@ fun LiveData<List<BusinessCard>>.sortedByName(): LiveData<List<BusinessCard>> =
         }
     }
 
-//TODO 009: Criar uma extension function para agrupar os contatos por inicial
+//TODO 010: Criar uma extension function para agrupar os contatos por inicial

@@ -12,10 +12,11 @@ import br.com.chicorialabs.businesscard.databinding.ItemBusinesscardBinding
 //TODO 002: Criar um item XML para o Header
 //TODO 003: Criar uma sealed class DataItemViewHolder que estende RecyclerView.ViewHolder
 //TODO 004: Reescrever a definição do Adapter com classes abstratas DataItem e DataItemViewHolder
-//TODO 005: Criar constantes para os ViewTypes
-//TODO 006: Sobrescrever o método getItemViewType()
-//TODO 007: Reescrever o método onCreateViewHolder()
-//TODO 008: Reescrever o método onBindViewHolder()
+//TODO 005: Renomear e reescrever o BusinessDiffCallback()
+//TODO 006: Criar constantes para os ViewTypes
+//TODO 007: Sobrescrever o método getItemViewType()
+//TODO 008: Reescrever o método onCreateViewHolder()
+//TODO 009: Reescrever o método onBindViewHolder()
 
 /**
  * O adapter implementa a interface ListAdapter com DiffUtil; tanto a inflação do layout
@@ -24,7 +25,7 @@ import br.com.chicorialabs.businesscard.databinding.ItemBusinesscardBinding
 class BusinessCardAdapter(val cardListener: BusinessCardListener) : ListAdapter<BusinessCard,
         BusinessCardAdapter.BusinessCardViewHolder>(BusinessCardDiffCallback()) {
 
-//    TODO 012: Definir um escopo de corrotina para o adapter
+//    TODO 013: Definir um escopo de corrotina para o adapter
 
 
 
@@ -35,8 +36,8 @@ class BusinessCardAdapter(val cardListener: BusinessCardListener) : ListAdapter<
         holder.bind(getItem(position), cardListener)
     }
 
-//    TODO 010: Criar um método addHeaderAndSubmitList()
-//    TODO 013: Refatorar o método addHeaderAndSubmitList para usar o adapterScope
+//    TODO 011: Criar um método addHeaderAndSubmitList()
+//    TODO 014: Refatorar o método addHeaderAndSubmitList para usar o adapterScope
 
 
 
