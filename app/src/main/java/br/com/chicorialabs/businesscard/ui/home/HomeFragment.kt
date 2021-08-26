@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
             binding.homeRecyclerView.adapter = adapter
 
 //            TODO 012: Modificar o observer para usar addHeaderAndSubmitList()
-            adapter.submitList(it)
+            adapter.addHeadersAndSubmitList(it)
         }
     }
 
