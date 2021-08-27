@@ -86,9 +86,6 @@ class BusinessCardAdapter(val cardListener: BusinessCardListener) : ListAdapter<
     }
 
 
-
-
-
     /**
      * Implementei o ViewHolder como uma classe aninhada para conseguir adotar a boa prática
      * de fazer a inflação do ViewHolder a partir de si mesmo. O binding dos dados e métodos
